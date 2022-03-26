@@ -1,8 +1,13 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const isProd = process.env.NODE_ENV === "production";
+
+// TO FOLLOW
+//
+// 1. https://github.com/pavelloz/webpack-tailwindcss/blob/master/webpack.config.js
 
 module.exports = {
   mode: isProd ? "production" : "development",
@@ -28,22 +33,22 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
-  resolve: {
-    alias: {
-      "@components": path.resolve(__dirname, "src/components"),
-      "@assets": path.resolve(__dirname, "src/assets"),
-    },
-  },
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          { loader: 'css-loader', options: { url: false } },
+          "postcss-loader",
+        ],
       },
       {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        test: /\.ts$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
@@ -56,9 +61,12 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: [".ts", ".js"],
   },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: "css/main.css",
+    }),
     new HtmlWebpackPlugin({
       template: "./src/views/index.html",
       chunks: ["index", "lit"],
