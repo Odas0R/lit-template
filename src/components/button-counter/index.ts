@@ -1,7 +1,7 @@
 import { LitElement, css, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
-import { TW } from "../../util/tailwind-mixin";
+import { TW } from "@utils/tailwind-mixin";
 
 @customElement("button-counter")
 export class Counter extends TW(LitElement) {

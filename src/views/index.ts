@@ -1,5 +1,5 @@
 // import css
-import "../css/main.css"
+import "@css/main.css"
 
 // Components
-import "../components/button-counter"
+import "@components/button-counter"

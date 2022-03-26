@@ -12,7 +12,16 @@
     "strict": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
+    "sourceMap": true,
+    "baseUrl": "./",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@css/*": ["src/css/*"],
+      "@assets/*": ["src/assets/*"],
+      "@utils/*": ["src/utils/*"],
+      "@types/*": ["src/types/*"],
+      "@views/*": ["src/views/*"]
+    },
     "plugins": [
       {
         "name": "ts-lit-plugin"

@@ -1,7 +1,7 @@
 const path = require("path");
-const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -15,33 +15,50 @@ module.exports = {
   entry: {
     index: {
       import: "./src/views/index.ts",
-      filename: "index.js",
-      dependOn: "lit",
-    },
-    account: {
-      import: "./src/views/account/index.ts",
-      filename: "account/index.js",
+      filename: "[contenthash].js",
       dependOn: "lit",
     },
     lit: {
       import: "lit",
-      filename: "shared/[name].[contenthash].js",
+      filename: "vendor/[contenthash].js",
     },
   },
   output: {
     filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
+    assetModuleFilename: 'assets/[name][ext]'
   },
   module: {
     rules: [
+      {
+        test: /\.svg$/i,
+        type: "asset/inline",
+        generator: {
+          filename: "icons/[contenthash][ext]",
+        },
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: "images/[contenthash][ext]",
+        },
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: "fonts/[contenthash][ext]",
+        },
+      },
       {
         test: /\.css$/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
           },
-          { loader: 'css-loader', options: { url: false } },
+          { loader: "css-loader" },
           "postcss-loader",
         ],
       },
@@ -50,39 +67,19 @@ module.exports = {
         use: "ts-loader",
         exclude: /node_modules/,
       },
-      {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: "asset/resource",
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: "asset/resource",
-      },
     ],
   },
   resolve: {
     extensions: [".ts", ".js"],
+    plugins: [new TsconfigPathsPlugin({})],
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "css/main.css",
+      filename: "css/[contenthash].css",
     }),
     new HtmlWebpackPlugin({
       template: "./src/views/index.html",
       chunks: ["index", "lit"],
     }),
-    new HtmlWebpackPlugin({
-      filename: "account/index.html",
-      template: "./src/views/account/index.html",
-      chunks: ["account", "lit"],
-    }),
-    // new CopyPlugin({
-    //   patterns: [
-    //     {
-    //       from: path.resolve(__dirname, "src/views/*.html"),
-    //       to: "[name][ext]",
-    //     },
-    //   ],
-    // }),
   ],
 };
