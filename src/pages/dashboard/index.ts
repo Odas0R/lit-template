@@ -2,4 +2,4 @@
 import "@css/main.css"
 
 // Components
-import "@components/greeting";
+import "@components/button-counter"

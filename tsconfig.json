@@ -1,26 +1,25 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "module": "es2020",
+    "target": "es2015",
     "moduleResolution": "node",
+    "strict": true,
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
     "allowJs": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@css/*": ["src/css/*"],
-      "@assets/*": ["src/assets/*"],
-      "@utils/*": ["src/utils/*"],
-      "@types/*": ["src/types/*"],
-      "@views/*": ["src/views/*"]
+      "@components/*": ["components/*"],
+      "@css/*": ["css/*"],
+      "@assets/*": ["assets/*"],
+      "@utils/*": ["utils/*"],
+      "@types/*": ["types/*"],
+      "@views/*": ["/views/*"]
     },
     "plugins": [
       {
