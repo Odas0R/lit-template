@@ -1,17 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es2015",
-    "moduleResolution": "node",
-    "strict": true,
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
-    "allowJs": true,
-    "isolatedModules": true,
+    "target": "ES6",
+    "module": "ESNext",
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
     "baseUrl": "./src",
     "paths": {
       "@components/*": ["components/*"],
@@ -19,12 +15,7 @@
       "@assets/*": ["assets/*"],
       "@utils/*": ["utils/*"],
       "@types/*": ["types/*"],
-      "@views/*": ["/views/*"]
-    },
-    "plugins": [
-      {
-        "name": "ts-lit-plugin"
-      }
-    ]
+      "@views/*": ["views/*"]
+    }
   }
 }

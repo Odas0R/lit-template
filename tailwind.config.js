@@ -1,7 +1,14 @@
+const { tailwindTransform } = require("postcss-lit");
+
 module.exports = {
-  content: ["./src/**/*.{html,js,ts}"],
+  content: {
+    files: ["./src/**/*.{js,ts}"],
+    transform: {
+      ts: tailwindTransform,
+    },
+  },
   theme: {
     extend: {},
   },
   plugins: [],
-}
+};

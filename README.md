@@ -1,5 +1,9 @@
 # Webpack Starter Kit
 
+Example:
+
+1. https://github.com/andrewlevada/webpack-lit-template
+
 
 
 **`tsconfig.json` bases to follow:**

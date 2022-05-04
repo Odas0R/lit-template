@@ -15,7 +15,7 @@ module.exports = {
     ...entries,
     lit: {
       import: "lit",
-      filename: "vendor/[contenthash].js"
+      filename: "vendor/[contenthash].js",
     },
   },
   output: {
@@ -30,21 +30,21 @@ module.exports = {
         test: /\.svg$/i,
         type: "asset/inline",
         generator: {
-          filename: "icons/[contenthash][ext]"
+          filename: "icons/[contenthash][ext]",
         },
       },
       {
         test: /\.(png|jpg|jpeg|gif)$/i,
         type: "asset/resource",
         generator: {
-          filename: "images/[contenthash][ext]" 
+          filename: "images/[contenthash][ext]",
         },
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: "asset/resource",
         generator: {
-          filename: "fonts/[contenthash][ext]"
+          filename: "fonts/[contenthash][ext]",
         },
       },
       {
@@ -61,17 +61,22 @@ module.exports = {
       {
         test: /\.ts$/,
         exclude: /node_modules/,
-        loader: "esbuild-loader",
-        options: {
-          loader: "ts",
-          target: "es2015",
-          tsconfigRaw: require("./tsconfig.json"),
-        },
+        use: [
+          "postcss-loader",
+          {
+            loader: "esbuild-loader",
+            options: {
+              loader: "ts",
+              target: "esnext",
+              tsconfigRaw: require("./tsconfig.json"),
+            },
+          },
+        ],
       },
     ],
   },
   resolve: {
-    extensions: [".ts", ".js"],
+    extensions: [".ts"],
     plugins: [new TsconfigPathsPlugin({})],
   },
   optimization: {
@@ -85,7 +90,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "css/[contenthash].css"
+      filename: "css/[contenthash].css",
     }),
     // Multiple Pages
     ...htmlPlugin,
